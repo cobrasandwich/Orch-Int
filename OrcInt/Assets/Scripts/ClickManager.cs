@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class ClickManager : MonoBehaviour
 {
+    public Camera camera;
+    RaycastHit hit;
+    Ray ray;
     // Start is called before the first frame update
     void Start()
     {
@@ -13,6 +16,14 @@ public class ClickManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            ray = camera.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out hit))
+            {
+                Debug.Log(hit.collider.gameObject.name);
+            }
+        }
     }
 }
