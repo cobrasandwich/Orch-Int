@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ClickManager : MonoBehaviour
 {
-    public Camera camera;
+    //public Camera camera;
     RaycastHit hit;
     Ray ray;
     // Start is called before the first frame update
@@ -19,7 +19,7 @@ public class ClickManager : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            ray = camera.ScreenPointToRay(Input.mousePosition);
+            ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out hit))
             {
                 Debug.Log(hit.collider.gameObject.name);
