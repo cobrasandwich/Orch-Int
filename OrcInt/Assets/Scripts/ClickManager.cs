@@ -6,6 +6,7 @@ using UnityEngine;
 public class ClickManager : MonoBehaviour
 {
     public GameObject hoveredObject;
+    Color original;
 
     // Update is called once per frame
     void Update()
@@ -21,7 +22,6 @@ public class ClickManager : MonoBehaviour
 
             GameObject hitObject = hit.collider.gameObject;
             SelectObject(hitObject);
-            Debug.Log(hoveredObject);
         }
         else {
             ClearSelection();
@@ -30,6 +30,7 @@ public class ClickManager : MonoBehaviour
 
     void SelectObject(GameObject obj) {
 
+        //check if already selected
         if (hoveredObject != null) {
             if(obj == hoveredObject) {
                 return;
@@ -38,9 +39,24 @@ public class ClickManager : MonoBehaviour
         }
 
         hoveredObject = obj;
+
+        Renderer rs = hoveredObject.GetComponent<Renderer>();
+        Material m = rs.material;
+        if(rs.material.color != Color.cyan) {
+            original = rs.material.color;
+        }
+        m.color = Color.cyan;
+        rs.material = m;
     }
 
     void ClearSelection() {
+        if(hoveredObject == null) {
+            return;
+        }
+
+        Renderer rs = hoveredObject.GetComponent<Renderer>();
+        rs.material.color = original;
+
         hoveredObject = null;
     }
 }
